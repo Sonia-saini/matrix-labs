@@ -1,14 +1,25 @@
-import './App.css';
-import SimpleSidebar from './Component/sidebar';
-import Token from './Component/token';
+import { Box } from "@chakra-ui/react";
+import "./App.css";
+import SimpleSidebar from "./Component/sidebar";
+import Token from "./Component/token";
 
 function App() {
   return (
-  <> 
-  <SimpleSidebar></SimpleSidebar>
-   <div className="App">
-    {/* <Token></Token> */}
-    </div>
+    <>
+      <SimpleSidebar></SimpleSidebar>
+      <div className="App" style={{ position: "relative", }}>
+        {/* <Token></Token> */}
+        <Box
+          style={{
+            width: "100%",
+            height: "68px",
+            flexShrink: 0,
+            background: "#F30050",
+            position: "fixed",
+            bottom: 0,
+          }}
+        ></Box>
+      </div>
     </>
   );
 }

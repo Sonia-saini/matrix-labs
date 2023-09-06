@@ -1,6 +1,6 @@
 
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   IconButton,
   Box,
@@ -12,6 +12,10 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
+  Input,
+  Heading,
+  SimpleGrid,
+  Button,
 } from '@chakra-ui/react'
 import {
   FiMenu,
@@ -19,17 +23,33 @@ import {
 import Token from './token'
 import PairAddress from './pairaddress'
 
-
+import {RiFacebookBoxFill,RiLinkedinBoxLine,RiTwitterFill} from "react-icons/ri"
+import Singledetail from './Singledetail'
+import { Link } from 'react-scroll'
 
 const LinkItems = [
-  { name: 'Token Address' ,href:"/token"},
-  { name: 'Pair Address', href:"/pair"}
+  { name: 'Token Address' ,id:"token"},
+  { name: 'Pair Address', id:"pair"}
 ]
 
 export default function SimpleSidebar() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [query,setQuery]=useState("");
+  const [data,setData]=useState([]);
+  let style={color:" var(--Cultured-Grey, #F7F9F9)",
+    fontFamily:" Work Sans",
+    fontSize: "24px",
+    fontStyle: "normal",
+    fontWeight: "600",
+    lineHeight: "28px"}
+  useEffect(()=>{
+    fetch(`https://api.dexscreener.com/latest/dex/search?q=${query}`)
+    .then((res)=>res.json()).then((res)=>setData(res?.pairs.sort((a,b)=>Number(a.priceUsd)-Number(b.priceUsd)
+    )));
+    setQuery("")
+  },[query])
   return (
-    <Box minH="100vh" bg={"black"}>
+    <Box minH="100vh" bgColor={"black"}>
       <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
       <Drawer
         isOpen={isOpen}
@@ -49,10 +69,35 @@ export default function SimpleSidebar() {
   backgroundRepeat="no-repeat"
   width="-moz-fit-content"
   height= "800"
-  backgroundColor= "lightgray 50%" objectFit={'cover'}>
+ objectFit={'cover'}>
         {/* Content */}
-        <Token/>
-        <PairAddress/>
+        <Input _placeholder={{ fontWeight:"500",color:"white"}}placeholder='Search' m={"10"} ml="20"style={{width: "50%",mt:"500",color:"white",placeContent:"baseline",
+// height: "50px",
+flexShrink: 0,borderRadius: "20px", 
+border: "1px solid #FFF",
+background: "linear-gradient(95deg, rgba(124, 15, 53, 0.20) 4.79%, rgba(88, 18, 102, 0.20) 100%)"
+
+}} onChange={(e)=>setQuery(e.target.value)}></Input>
+<Button style={{color: "#FFF",
+fontFamily: "Poppins",
+fontSize: "16px",
+fontStyle: "normal",
+fontWeight: 600,
+lineHeight: "normal",borderRadius: "20px",
+background: "linear-gradient(95deg, #7C0F35 7.59%, #581266 104.01%)",width: "156px",
+height: "52px",
+flexShrink: 0
+}}>Connect</Button>
+{data.length>1&&<Box>
+<Heading style={style} ml="10">Search Results</Heading>
+    <SimpleGrid gap="10" columns={[1,2,3,4]} m="10">
+{data.map((el)=>
+<Singledetail props={el}/>
+)}
+    </SimpleGrid> 
+</Box>}
+        {data.length===0&&<Token/>}
+       {data.length===0&& <PairAddress/>}
       </Box>
     </Box>
   )
@@ -82,24 +127,40 @@ lineHeight="normal">
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} color="white"/>
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} onClick={()=>onClose()}>
           {link.name}
         </NavItem>
       ))}
+      <Box       mt="300"
+      p="5" style={{display: "inline-flex",
+      width:"100%",
+
+      m:"20px 20px 20px 20px",
+      height:"10%",
+alignItems: "flex-start",
+gap: "20px",borderRadius: "0px 32px 32px 0px",
+background: "#292929"}}>
+  <RiFacebookBoxFill color='#F30050' size={"24"}/>
+  <RiLinkedinBoxLine  color='#F30050' size={"24"}/>
+  <RiTwitterFill  color='#F30050' size={"30"}/>
+</Box>
     </Box>
   )
 }
 
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children,id,onClose, ...rest }) => {
+  console.log(onClose)
   return (
     <Box
       as="a"
       href="#"
       color={"white"}
       style={{ textDecoration: 'none' }}
-      _focus={{ color: '#F30050',background:"#F30050" }}>
+     >
+      <Link to={id} spy={true} smooth={true} offset={-15} duration={1000} onClick={onClose}>
       <Flex
+       _active={{ backgroundColor:"#F30050" }}
         align="center"
         p="4"
         mx="4"
@@ -119,6 +180,7 @@ const NavItem = ({ icon, children, ...rest }) => {
         )}
         {children}
       </Flex>
+      </Link>
     </Box>
   )
 }
@@ -131,7 +193,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       px={{ base: 4, md: 24 }}
       height="20"
       alignItems="center"
-      bg={useColorModeValue('white', 'gray.900')}
+      bg="gray"
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
       justifyContent="flex-start"

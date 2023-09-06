@@ -1,11 +1,11 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 
 function Singledetail({ props }) {
   return (
- <>  <Box
-      width="279px"
-      p="5"
+ <>  <Grid
+      // width="279px"
+      p="10"
       height="188px"
       flexShrink="0"
       borderRadius="10px"
@@ -129,10 +129,10 @@ function Singledetail({ props }) {
           {props?.pairAddress.substring(0,5)}{" "}
         </Text>
       </Flex>
-    </Box>
-    <Box
-      width="279px"
-      p="5"
+    </Grid>
+    <Grid
+      // width="279px"
+      p="10"
       height="188px"
       flexShrink="0"
       borderRadius="10px"
@@ -186,7 +186,7 @@ function Singledetail({ props }) {
             lineHeight: "normal",
           }}
         >
-          address  </Text>
+          Address  </Text>
            <Text           style={{
             color: "#FFF",
             fontFamily: "Poppins",
@@ -208,7 +208,7 @@ function Singledetail({ props }) {
             fontWeight: "600",
             lineHeight: "normal",
           }}
-        > symbol
+        > Symbol
             </Text>
           <Text           style={{
             color: "#FFF",
@@ -220,10 +220,10 @@ function Singledetail({ props }) {
           }}>{props.baseToken.symbol}{" "}
         </Text>
       </Flex>
-    </Box>
-    <Box
-      width="279px"
-      p="5"
+    </Grid>
+    <Grid
+      // width="279px"
+      p="10"
       height="188px"
       flexShrink="0"
       borderRadius="10px"
@@ -277,7 +277,7 @@ function Singledetail({ props }) {
             lineHeight: "normal",
           }}
         >
-          address  </Text>
+          Address  </Text>
            <Text           style={{
             color: "#FFF",
             fontFamily: "Poppins",
@@ -299,7 +299,7 @@ function Singledetail({ props }) {
             fontWeight: "600",
             lineHeight: "normal",
           }}
-        > symbol
+        > Symbol
             </Text>
           <Text           style={{
             color: "#FFF",
@@ -311,10 +311,10 @@ function Singledetail({ props }) {
           }}>{props.quoteToken.symbol}{" "}
         </Text>
       </Flex>
-    </Box>
-    <Box
-      width="279px"
-      p="5"
+    </Grid>
+    <Grid
+      // width="279px"
+      p="10"
       height="188px"
       flexShrink="0"
       borderRadius="10px"
@@ -379,8 +379,9 @@ function Singledetail({ props }) {
           }}>{props.priceUsd}{" "}
         </Text>
       </Flex>
-    </Box>
+    </Grid>
     </> 
+
   );
 }
 

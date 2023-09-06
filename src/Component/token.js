@@ -19,12 +19,12 @@ let style={color:" var(--Cultured-Grey, #F7F9F9)",
     fontWeight: "600",
     lineHeight: "28px"}
   return (
-   <> <Heading style={style}>Token Search Results</Heading>
-    <SimpleGrid gap="10" columns={[1,2,3,4]}>
+   <Box id="token"> <Heading style={style} ml="10">Token Search Results</Heading>
+    <SimpleGrid gap="10" columns={[1,2,3,4]} m="10">
 {data&&data.map((el)=>
 <Singledetail props={el}/>
 )}
-    </SimpleGrid></>
+    </SimpleGrid></Box>
   )
 }
 

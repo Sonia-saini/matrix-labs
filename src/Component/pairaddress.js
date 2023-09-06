@@ -20,12 +20,12 @@ let style={
     fontWeight: "600",
     lineHeight: "28px"}
   return (
-   <> <Heading style={style}>Pair Address</Heading>
-    <SimpleGrid gap="10" columns={[1,2,3,4]}>
+   <Box id="pair"> <Heading style={style} ml="10">Pair Address</Heading>
+    <SimpleGrid gap="10" m="10" columns={[1,2,3,4]}>
 {data&&data.map((el)=>
 <Singledetail props={el}/>
 )}
-    </SimpleGrid></>
+    </SimpleGrid></Box>
   )
 }
 
