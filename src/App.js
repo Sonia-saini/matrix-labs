@@ -1,14 +1,12 @@
 import { Box } from "@chakra-ui/react";
 import "./App.css";
 import SimpleSidebar from "./Component/sidebar";
-import Token from "./Component/token";
 
 function App() {
   return (
     <>
       <SimpleSidebar></SimpleSidebar>
-      <div className="App" style={{ position: "relative", }}>
-        {/* <Token></Token> */}
+      <div className="App" style={{ position: "relative" }}>
         <Box
           style={{
             width: "100%",
