@@ -25,28 +25,6 @@ import {
   RiTwitterFill,
 } from "react-icons/ri";
 import Singledetail from "./Singledetail";
-import { Link } from "react-scroll";
-import "@rainbow-me/rainbowkit/styles.css";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { mainnet, polygon, optimism, arbitrum, base, zora } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
-const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, base, zora],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
-);
-const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
-  projectId: "28b58dde9a87530cb2e94057627660ee",
-  chains,
-});
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-});
 const LinkItems = [
   {
     name: "Token Address",
@@ -164,9 +142,9 @@ export default function SimpleSidebar() {
             }}
             onChange={(e) => setQuery(e.target.value)}
           ></Input>
-          <WagmiConfig config={wagmiConfig}>
-            <RainbowKitProvider chains={chains}>
-              {/* <Button style={{color: "#FFF",
+           {/* <WagmiConfig config={wagmiConfig}>
+            <RainbowKitProvider chains={chains}> */}
+              <Button style={{color: "#FFF",
 fontFamily: "Poppins",
 fontSize: "16px",
 fontStyle: "normal",
@@ -175,8 +153,8 @@ lineHeight: "normal",borderRadius: "20px",
 background: "linear-gradient(95deg, #7C0F35 7.59%, #581266 104.01%)",width: "156px",
 height: "52px",
 flexShrink: 0
-}}>Connect</Button> */}
-              <ConnectButton.Custom>
+}}>Connect</Button>
+              {/* <ConnectButton.Custom>
                 {({
                   account,
                   chain,
@@ -280,8 +258,8 @@ flexShrink: 0
                 }}
               </ConnectButton.Custom>
               {/* <ConnectButton text="Connect"/> */}
-            </RainbowKitProvider>
-          </WagmiConfig>
+            {/* </RainbowKitProvider>
+          </WagmiConfig> */}
         </SimpleGrid>
         {data.length > 1 && (
           <Box>
